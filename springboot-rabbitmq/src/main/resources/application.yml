@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: springboot-rabbitmq
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: putixin=2023
