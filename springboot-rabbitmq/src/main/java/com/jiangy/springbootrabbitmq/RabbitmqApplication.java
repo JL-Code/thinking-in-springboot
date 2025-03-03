@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author jiangy
  */
 @SpringBootApplication
-public class SpringbootRabbitmqApplication {
+public class RabbitmqApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootRabbitmqApplication.class, args);
+		SpringApplication.run(RabbitmqApplication.class, args);
 	}
 
 }
