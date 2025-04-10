@@ -1,1 +1,3 @@
 rootProject.name = 'thinking-in-springboot'
+include 'notification'
+
