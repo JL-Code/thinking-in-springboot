@@ -1,0 +1,93 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package channel {
+
+    interface Channel<T extends Message> {
+         getChannelType(): String
+         getProviderName(): String
+         send(T message): SendResult throws ChannelException
+    }
+
+    interface SmsChannel extends Channel<SmsMessage>{
+
+    }
+
+
+    interface EmailChannel extends Channel<EmailMessage>{
+
+    }
+
+    interface DingTalkChannel extends Channel<AbstractDingTalkMessage>{
+
+    }
+    
+}
+
+package provider  {
+     class AliyunSmsProvider implements channel.SmsChannel {
+           send(SmsMessage message): SendResult
+     }
+     class TencentSmsProvider implements channel.SmsChannel {
+           send(SmsMessage message): SendResult
+     }
+
+     class DingTalkRobotProvider implements channel.DingTalkChannel {
+           send(SmsMessage message): SendResult
+     }
+}
+
+package model {
+    interface Notification<T extends Message>    {
+        + getMessage(): T
+        + getRecipient(): String
+    }
+
+    interface Message
+
+    class SmsMessage implements Message {
+       signName: String
+       templateId: String
+       templateJsonParam: String
+    }
+
+    class EmailMessage implements Message {
+        title: String
+        body: String
+        isHtml: boolean
+    }
+
+    abstract class AbstractWeChatMessage implements Message {
+        toUser: String
+        templateId: String
+        url: String
+        templateJsonParam: String
+    }
+
+    abstract class AbstractDingTalkMessage implements Message {
+         getMsgType(): String
+         at: AudienceInfo
+    }
+
+    class LinkMessage extends  AbstractDingTalkMessage{
+        title: String
+        text: String
+        getMsgType(): String
+    }
+    class TextMessage extends AbstractDingTalkMessage {
+        content: String
+        getMsgType(): String
+    }
+
+    class SendResult {
+        success: boolean
+        errCode: String
+        errMsg: String
+    }
+}
+
+package exception {
+    class ChannelException
+}
+
+@enduml
